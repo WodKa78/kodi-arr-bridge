@@ -6,7 +6,7 @@ Version **0.1.1** adds selected movies to Radarr and TV series to Sonarr, using 
 
 ## Install
 
-1. Open [script.arr.bridge-0.1.1.zip](dist/script.arr.bridge-0.1.1.zip) and use GitHub's **Download raw file** button to save it to your Kodi device. This repository is private, so sign in to GitHub to download.
+1. Open [script.arr.bridge-0.1.1.zip](dist/script.arr.bridge-0.1.1.zip) and use GitHub's **Download raw file** button to save it to your Kodi device.
 2. In Kodi, enable **Settings → System → Add-ons → Unknown sources**, then select **Add-ons → Install from zip file** and choose that ZIP.
 3. Open **Program add-ons → Arr Bridge → Server settings**, enter your Radarr/Sonarr URLs and API keys, and choose **Save settings**.
 4. Run **Test server connections**. Install/enable TMDb Helper for searching.
