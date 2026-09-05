@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="script.arr.bridge" name="Arr Bridge" version="0.1.1" provider-name="Arr Bridge">
+  <requires>
+    <import addon="xbmc.python" version="3.0.1"/>
+    <import addon="plugin.video.themoviedb.helper" version="5.0.0" optional="true"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py"><provides>executable</provides></extension>
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+      <item library="context.py">
+        <label>Add to Radarr / Sonarr</label>
+        <visible>String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,tvshow) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,episode) | !String.IsEmpty(ListItem.TVShowTitle) | String.Contains(ListItem.FolderPath,plugin.video.themoviedb.helper) | !String.IsEmpty(ListItem.UniqueID(tmdb)) | !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+      </item>
+    </menu>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Send selected movies and series to Radarr and Sonarr.</summary>
+    <description lang="en_GB">Search with TMDb Helper, then choose a server quality profile, root folder, monitoring and search options in a remote-friendly dialog. Supports context menus and explicit skin or keymap actions.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+  </extension>
+</addon>

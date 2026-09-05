@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <category label="Save settings form">
+    <setting type="action" label="Open settings with Save and Cancel buttons" action="RunScript(script.arr.bridge,action=settings)" option="close"/>
+  </category>
+  <category label="Radarr">
+    <setting id="radarr_url" type="text" label="Server URL (include URL base if configured)" default="http://192.168.1.100:7878"/>
+    <setting id="radarr_key" type="text" option="hidden" label="API key" default=""/>
+  </category>
+  <category label="Sonarr">
+    <setting id="sonarr_url" type="text" label="Server URL (include URL base if configured)" default="http://192.168.1.100:8989"/>
+    <setting id="sonarr_key" type="text" option="hidden" label="API key" default=""/>
+  </category>
+  <category label="Defaults">
+    <setting id="search_after_add" type="bool" label="Search for downloads after adding" default="false"/>
+    <setting id="remember_choices" type="bool" label="Remember profile and root folder per server" default="true"/>
+    <setting id="timeout" type="number" label="API timeout (seconds)" default="20"/>
+  </category>
+</settings>

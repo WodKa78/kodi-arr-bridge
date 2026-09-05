@@ -1,0 +1,13 @@
+<includes>
+<!-- Arr Bridge information action BEGIN -->
+            <include content="DialogInfo_Button_Expansion" condition="System.HasAddon(script.arr.bridge)">
+                <param name="id">4098</param>
+                <param name="groupid">4198</param>
+                <param name="sliceid">4298</param>
+                <param name="label">Add to Arr</param>
+                <param name="icon">special://skin/extras/icons/watchlist.png</param>
+                <param name="visible">String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,tvshow) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv)</param>
+                <onclick>RunScript(script.arr.bridge,action=add)</onclick>
+            </include>
+            <!-- Arr Bridge information action END -->
+</includes>
