@@ -54,7 +54,8 @@ class App:
         if self.addon.getSettingBool('remember_choices'):
             try:
                 with open(self.preferences_path(client), encoding='utf-8') as f:
-                    data = json.load(f)
+                    loaded = json.load(f)
+                    data = loaded if isinstance(loaded, dict) else {}
             except (OSError, ValueError):
                 pass
         data['search'] = self.addon.getSettingBool('search_after_add')
@@ -138,6 +139,16 @@ class App:
                     'profile': str(options['qualityProfileId']), 'root': options['rootFolderPath']}))
             except OSError:
                 pass  # Successful additions remain successful if local preferences cannot be saved.
+        # Keep the visible switch and the settings default in sync, independently
+        # of profile/folder memory. Only remember a confirmed successful addition.
+        try:
+            value = 'true' if options['search'] else 'false'
+            if self.addon.setSetting('search_after_add', value) is False:
+                raise OSError('Setting write rejected')
+            if self.addon.getSetting('search_after_add') != value:
+                raise OSError('Setting was not retained')
+        except Exception:
+            self.dialog.ok('Title added', 'The title was added successfully, but Kodi could not remember the search switch. Check profile write permissions. Do not add the title again.')
         searched = options['search'] and (options['monitored'] if client.kind == 'radarr' else options['monitor'] != 'none')
         self.dialog.notification('Added to ' + client.kind.title(), candidate['title'] + (' — search requested' if searched else ''),
                                  xbmcgui.NOTIFICATION_INFO, 5000)

@@ -21,7 +21,10 @@ class AddDialog(xbmcgui.WindowXMLDialog):
         self.getControl(20).setLabel('Add to ' + self.kind.title())
         c = self.candidate
         ident = 'TMDb {}'.format(c.get('tmdbId')) if self.kind == 'radarr' else 'TVDb {}'.format(c.get('tvdbId'))
-        self.getControl(21).setLabel('{} ({})  |  {}'.format(c.get('title', ''), c.get('year') or '?', ident))
+        self.getControl(21).setText(c.get('title', ''))
+        self.getControl(24).setLabel('{}  /  {}'.format(c.get('year') or 'Year unknown', ident))
+        self.getControl(25).setText(c.get('overview') or 'Choose how this title should be added to your library.')
+        self.getControl(200).setLabel('Add to ' + self.kind.title())
         self.refresh()
         self.setFocusId(100)
 
@@ -29,7 +32,7 @@ class AddDialog(xbmcgui.WindowXMLDialog):
         o = self.options
         profile = next(p for p in self.profiles if p['id'] == o['qualityProfileId'])
         tag_names = [t['label'] for t in self.tags if t['id'] in o['tags']]
-        yes = lambda b: 'Yes' if b else 'No'
+        yes = lambda b: 'On' if b else 'Off'
         rows = [('profile', 'Quality profile: ' + profile['name']),
                 ('root', 'Root folder: ' + o['rootFolderPath'])]
         if self.kind == 'radarr':
@@ -47,7 +50,9 @@ class AddDialog(xbmcgui.WindowXMLDialog):
             control = self.getControl(100 + i)
             control.setVisible(i < len(rows))
             if i < len(rows):
-                control.setLabel(rows[i][1])
+                label, value = rows[i][1].split(': ', 1)
+                control.setLabel(label, label2=value)
+        self.wire_navigation(len(rows))
         allowed = []
         def collect(items):
             for item in items:
@@ -58,7 +63,17 @@ class AddDialog(xbmcgui.WindowXMLDialog):
                         collect(item['items'])
         collect(profile.get('items', []))
         self.getControl(22).setText('Allowed qualities: ' + (', '.join(allowed) or 'Defined by this server profile') +
-                                  '\nQuality, language and upgrade rules follow the selected server profile.')
+                                  '\nSearch preference is remembered after a successful addition.')
+
+    def wire_navigation(self, count):
+        """Never route the remote through hidden movie/settings rows."""
+        get = self.getControl
+        for i in range(count):
+            get(100 + i).setNavigation(get(200 if i == 0 else 99 + i),
+                                      get(200 if i == count - 1 else 101 + i),
+                                      get(201), get(200))
+        get(200).setNavigation(get(99 + count), get(100), get(201), get(201))
+        get(201).setNavigation(get(99 + count), get(100), get(200), get(200))
 
     def select(self, heading, values, labels=None, current=None):
         preselect = values.index(current) if current in values else -1

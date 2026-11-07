@@ -57,7 +57,9 @@ class SettingsDialog(AddDialog):
 
     def onInit(self):
         self.getControl(20).setLabel('Arr Bridge settings')
-        self.getControl(21).setLabel('Server connections and defaults')
+        self.getControl(21).setText('Your library.\nYour preferences.')
+        self.getControl(24).setLabel('RADARR  /  SONARR')
+        self.getControl(25).setText('Connect your servers and set your preferred behavior.\n\nThe search switch also remembers your last successful addition. API keys stay hidden.')
         self.getControl(22).setText('Select a row to edit it. Choose Save settings to apply your changes.\nCancel or Back discards changes. API keys are hidden.')
         self.getControl(200).setLabel('Save settings')
         self.refresh()
@@ -69,9 +71,10 @@ class SettingsDialog(AddDialog):
             if kind == 'secret':
                 value = '******** (set)' if value else 'Not set'
             elif kind == 'bool':
-                value = 'Yes' if value == 'true' else 'No'
-            self.getControl(100 + index).setLabel(label + ': ' + (value or 'Not set'))
+                value = 'On' if value == 'true' else 'Off'
+            self.getControl(100 + index).setLabel(label, label2=value or 'Not set')
         self.getControl(107).setVisible(False)
+        self.wire_navigation(len(FIELDS))
 
     def onClick(self, control_id):
         if control_id == 201:

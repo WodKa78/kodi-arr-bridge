@@ -1,10 +1,10 @@
-# Arr Bridge 0.1.1
+# Arr Bridge 0.1.2
 
-Add a movie or TV series selected in Kodi directly to Radarr or Sonarr, with a remote-friendly options dialog. Built for the requested Kodi 22 beta / Arctic Fuse 2 setup; live testing on that setup is still required. Uses Kodi's Python 3 API, with no pip packages or separate server component.
+Add a movie or TV series selected in Kodi directly to Radarr or Sonarr, with a remote-friendly options dialog. Built for the requested Kodi 22 RC1 / Arctic Fuse 2 setup; live testing on that setup is still required. Uses Kodi's Python 3 API, with no pip packages or separate server component.
 
 ## Installation and setup
 
-1. Download `script.arr.bridge-0.1.1.zip` to your Kodi device.
+1. Download `script.arr.bridge-0.1.2.zip` to your Kodi device.
 2. In Kodi, enable **Settings → System → Add-ons → Unknown sources** if needed. Choose **Add-ons → Install from zip file** and select the ZIP. Do not unzip it first.
 3. Open **Program add-ons → Arr Bridge → Server settings**. Enter your Radarr and Sonarr addresses and API keys. Find each key in that application's **Settings → General → Security**. Choose **Save settings** at the bottom to apply your changes; a confirmation appears. **Cancel** or Back discards edits. Existing values are loaded when the form opens. Enter keys on your device; do not send them in chat.
 4. Use full reachable addresses such as `http://192.168.1.50:7878` and `http://192.168.1.50:8989`. Include a reverse-proxy URL base if used, for example `https://media.example/radarr`. `localhost` means the Kodi device itself. Root folder paths are paths on the Arr server, not the Kodi device.
@@ -33,7 +33,7 @@ The dialog loads the server's current choices:
 | Tags | Existing server tags | Existing server tags |
 | Search after adding | Optional | Optional, for monitored episodes |
 
-Select **Add** to submit. Back/Escape or Cancel makes no addition. Search is off by default and can be enabled per addition or in settings. The last quality profile and folder are remembered separately per configured server. Choices are revalidated against the current lists each time.
+Select **Add** to submit. Back/Escape or Cancel makes no addition. Search is off on a fresh install. After a successful addition, its switch is saved as the default for both servers, independently of profile/folder memory. Changing it in settings also changes that default. Cancel and failed additions do not save it. If saving fails after a successful addition, a separate message explains that the title was added but the preference could not be saved. The last quality profile and folder are remembered separately per configured server. Choices are revalidated against the current lists each time.
 
 **Quality profile is the quality selector:** the Arr API assigns a `qualityProfileId`; it does not accept a standalone “download in 1080p” property on add. Create profiles such as *1080p* and *2160p* in your servers to select these targets here. The add-on does not rewrite shared server profiles. Language and custom-format rules stay in the selected profile; Sonarr 3's separate language-profile API is not implemented. Sonarr 4 is the target.
 

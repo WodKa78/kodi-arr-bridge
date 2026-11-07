@@ -57,6 +57,77 @@ class WorkflowTests(unittest.TestCase):
             self.app.add(self.raw, {})
         self.client.add.assert_called_once_with(self.candidate, options)
 
+    def test_search_choice_survives_new_app_instance_for_on_and_off(self):
+        for selected in (True, False):
+            with self.subTest(selected=selected):
+                self.setUp()
+                saved = {'search_after_add': 'false', 'remember_choices': 'false'}
+                self.app.addon.setSetting.side_effect = lambda k, v: saved.update({k: v})
+                self.app.addon.getSetting.side_effect = lambda k: saved.get(k, '')
+                self.app.addon.getSettingBool.side_effect = lambda k: saved.get(k) == 'true'
+                options = dict(qualityProfileId=7, rootFolderPath='/movies', monitored=True, search=selected)
+                with patch.object(app_module, 'AddDialog') as dialog:
+                    dialog.return_value.result = options
+                    self.app.add(self.raw, {})
+                reopened = app_module.App()
+                reopened.addon = self.app.addon
+                self.assertEqual(reopened.defaults(self.client)['search'], selected)
+                # The same default is used for Sonarr as for Radarr.
+                self.assertEqual(reopened.defaults(Mock(kind='sonarr'))['search'], selected)
+                self.app.dialog.ok.assert_not_called()
+
+    def test_failed_or_cancelled_add_does_not_change_search_default(self):
+        for cancelled in (True, False):
+            with self.subTest(cancelled=cancelled):
+                self.setUp()
+                self.client.add.side_effect = ArrError('Server unavailable')
+                with patch.object(app_module, 'AddDialog') as dialog:
+                    dialog.return_value.result = None if cancelled else {'search': True}
+                    with self.assertRaises((app_module.Cancelled, ArrError)):
+                        self.app.add(self.raw, {})
+                self.app.addon.setSetting.assert_not_called()
+
+    def test_search_save_failure_does_not_retry_successful_add(self):
+        self.app.addon.setSetting.return_value = False
+        with patch.object(app_module, 'AddDialog') as dialog:
+            dialog.return_value.result = dict(search=True, monitored=True)
+            self.app.add(self.raw, {})
+        self.client.add.assert_called_once()
+        self.app.dialog.ok.assert_called_once()
+        self.app.dialog.notification.assert_called_once()
+
+    def test_unmonitored_title_keeps_search_preference(self):
+        self.app.addon.setSetting.return_value = True
+        self.app.addon.getSetting.return_value = 'true'
+        with patch.object(app_module, 'AddDialog') as dialog:
+            dialog.return_value.result = dict(search=True, monitored=False)
+            self.app.add(self.raw, {})
+        self.app.addon.setSetting.assert_called_once_with('search_after_add', 'true')
+        self.assertNotIn('search requested', self.app.dialog.notification.call_args.args[1])
+
+    def test_navigation_skips_hidden_rows(self):
+        for count in (6, 7, 8):
+            form = AddDialog()
+            controls = {i: Mock() for i in list(range(100, 108)) + [200, 201]}
+            form.getControl = controls.__getitem__
+            form.wire_navigation(count)
+            self.assertIs(controls[99 + count].setNavigation.call_args.args[1], controls[200])
+            self.assertIs(controls[200].setNavigation.call_args.args[0], controls[99 + count])
+            for hidden in range(100 + count, 108):
+                controls[hidden].setNavigation.assert_not_called()
+
+    def test_settings_default_overrides_previous_search_choice(self):
+        saved = dict(radarr_url='', sonarr_url='', radarr_key='', sonarr_key='',
+                     timeout='20', search_after_add='true', remember_choices='false')
+        addon = Mock()
+        addon.getSetting.side_effect = lambda k: saved.get(k, '')
+        addon.getSettingBool.side_effect = lambda k: saved.get(k) == 'true'
+        addon.setSetting.side_effect = lambda k, v: saved.update({k: v})
+        app_module.save_settings(addon, dict(saved, search_after_add='false'))
+        reopened = app_module.App()
+        reopened.addon = addon
+        self.assertIs(reopened.defaults(self.client)['search'], False)
+
     def test_already_added_does_not_open_form(self):
         self.client.existing.return_value = {'id': 10}
         with patch.object(app_module, 'AddDialog') as dialog:
