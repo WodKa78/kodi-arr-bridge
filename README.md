@@ -4,6 +4,19 @@ Add media to your Arr instances directly from within Kodi.
 
 Version **0.1.2** adds selected movies to Radarr and TV series to Sonarr, using TMDb Helper for browsing and searching. The add dialog lets you choose quality profiles, root folders, monitoring, tags, and whether to search after adding. Includes the explicit **Save settings** button and Arctic Fuse 2 information-screen integration.
 
+## Credits
+
+This project is completely vibe coded with AI. I take no credit for the code.
+
+## Current downloads
+
+| Package | Current version | Download |
+|---|---|---|
+| Arr Bridge add-on | **0.1.2** | [script.arr.bridge-0.1.2.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.bridge-0.1.2.zip) |
+| Repository installer for updates | **1.0.0** | [repository.arr.bridge-1.0.0.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/docs/repository.arr.bridge-1.0.0.zip) |
+
+These are separate packages with independent version numbers. The repository installer **1.0.0** delivers the current Arr Bridge add-on **0.1.2** and future published updates. For easy updating, install the repository package first.
+
 ## Easy updates through the Kodi repository
 
 Download [repository.arr.bridge-1.0.0.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/docs/repository.arr.bridge-1.0.0.zip) and install it using **Add-ons → Install from zip file**.
@@ -16,9 +29,9 @@ The optional File manager address is **https://wodka78.github.io/kodi-arr-bridge
 
 Maintainers: see [publishing instructions](tools/REPOSITORY.md).
 
-## Install
+## Manual installation — Arr Bridge 0.1.2
 
-1. Open [script.arr.bridge-0.1.2.zip](dist/script.arr.bridge-0.1.2.zip) and use GitHub's **Download raw file** button to save it to your Kodi device.
+1. Download the current add-on: [script.arr.bridge-0.1.2.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.bridge-0.1.2.zip). Save the ZIP to your Kodi device.
 2. In Kodi, enable **Settings → System → Add-ons → Unknown sources**, then select **Add-ons → Install from zip file** and choose that ZIP.
 3. Open **Program add-ons → Arr Bridge → Server settings**, enter your Radarr/Sonarr URLs and API keys, and choose **Save settings**.
 4. Run **Test server connections**. Install/enable TMDb Helper for searching.
