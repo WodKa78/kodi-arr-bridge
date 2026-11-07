@@ -4,6 +4,18 @@ Add media to your Arr instances directly from within Kodi.
 
 Version **0.1.2** adds selected movies to Radarr and TV series to Sonarr, using TMDb Helper for browsing and searching. The add dialog lets you choose quality profiles, root folders, monitoring, tags, and whether to search after adding. Includes the explicit **Save settings** button and Arctic Fuse 2 information-screen integration.
 
+## Easy updates through the Kodi repository
+
+Download [repository.arr.bridge-1.0.0.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/docs/repository.arr.bridge-1.0.0.zip) and install it using **Add-ons → Install from zip file**.
+Then open **Install from repository → Arr Bridge Repository → Program add-ons → Arr Bridge → Install**.
+
+If you installed Arr Bridge manually before, choose **Arr Bridge Repository** under **Versions** (or **Update**, depending on the skin) to install the repository copy, even if it is the same version. Do not uninstall first; keep your server settings.
+Enable **Auto-update** for Arr Bridge and allow automatic installation in Kodi's global add-on update settings. Updates become available when a newer version is published in this feed.
+
+The optional File manager address is **https://wodka78.github.io/kodi-arr-bridge/** after GitHub Pages has been enabled for `main:/docs`. The repository download and update feed work independently of Pages.
+
+Maintainers: see [publishing instructions](tools/REPOSITORY.md).
+
 ## Install
 
 1. Open [script.arr.bridge-0.1.2.zip](dist/script.arr.bridge-0.1.2.zip) and use GitHub's **Download raw file** button to save it to your Kodi device.
