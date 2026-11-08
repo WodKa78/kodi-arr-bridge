@@ -39,4 +39,25 @@
       <license>MIT</license>
     </extension>
   </addon>
+  <addon id="script.arr.remove" name="Arr Remove" version="0.1.1" provider-name="Arr Bridge">
+    <requires>
+      <import addon="xbmc.python" version="3.0.1"/>
+      <import addon="script.arr.bridge" version="0.1.2"/>
+    </requires>
+    <extension point="xbmc.python.script" library="default.py"><provides>executable</provides></extension>
+    <extension point="kodi.context.item">
+      <menu id="kodi.core.main">
+        <item library="context.py">
+          <label>Remove from Kodi / Arr</label>
+          <visible>String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,tvshow)</visible>
+        </item>
+      </menu>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+      <summary lang="en_GB">Remove library movies and shows, optionally also from Radarr or Sonarr.</summary>
+      <description lang="en_GB">Adds a context-menu removal action for Kodi library movies and TV shows. It can remove the Kodi library entry only, or additionally remove the matching Arr entry, its files, and import-list exclusion.</description>
+      <platform>all</platform>
+      <license>MIT</license>
+    </extension>
+  </addon>
 </addons>

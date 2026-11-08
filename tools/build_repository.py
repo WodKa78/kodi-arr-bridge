@@ -32,13 +32,13 @@ def package_repository(folder):
 
 def build():
     manifests = []
-    for addon_id in ('script.arr.bridge', 'repository.arr.bridge'):
+    for addon_id in ('script.arr.bridge', 'script.arr.remove', 'repository.arr.bridge'):
         folder = ROOT / addon_id
         manifest = ET.parse(folder / 'addon.xml').getroot()
         assert manifest.attrib['id'] == addon_id
         version = manifest.attrib['version']
         filename = '{}-{}.zip'.format(addon_id, version)
-        if addon_id == 'script.arr.bridge':
+        if addon_id in ('script.arr.bridge', 'script.arr.remove'):
             payload = (ROOT / 'dist' / filename).read_bytes()
         else:
             payload = package_repository(folder)
