@@ -130,8 +130,13 @@ def main(listitem=None):
         selected = choice(dialog, media)
         if selected < 0:
             return
-        if not dialog.yesno('Confirm removal', 'Remove “{}” from Kodi?'.format(media['title']),
-                            'This action updates the Kodi library immediately.', nolabel='Cancel', yeslabel='Remove'):
+        scopes = ('Kodi library only; files remain.',
+                  'Kodi and Arr entry; files remain.',
+                  'Kodi and Arr entry; Arr will delete managed files.',
+                  'Kodi and Arr entry; Arr will delete managed files and exclude import lists.')
+        if not dialog.yesno('Confirm removal',
+                            'Remove “{}”?\n{}'.format(media['title'], scopes[selected]),
+                            nolabel='Cancel', yeslabel='Remove'):
             return
         if selected:
             client = ArrClient('radarr' if media['kind'] == 'movie' else 'sonarr')

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="script.arr.remove" name="Arr Remove" version="0.1.0" provider-name="Arr Bridge">
+<addon id="script.arr.remove" name="Arr Remove" version="0.1.1" provider-name="Arr Bridge">
   <requires>
     <import addon="xbmc.python" version="3.0.1"/>
     <import addon="script.arr.bridge" version="0.1.2"/>

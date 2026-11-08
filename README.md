@@ -13,7 +13,7 @@ This project is completely vibe coded with AI. I take no credit for the code.
 | Package | Current version | Download |
 |---|---|---|
 | Arr Bridge add-on | **0.1.2** | [script.arr.bridge-0.1.2.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.bridge-0.1.2.zip) |
-| Arr Remove add-on | **0.1.0** | [script.arr.remove-0.1.0.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.remove-0.1.0.zip) |
+| Arr Remove add-on | **0.1.1** | [script.arr.remove-0.1.1.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.remove-0.1.1.zip) |
 | Repository installer for updates | **1.0.0** | [repository.arr.bridge-1.0.0.zip](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/docs/repository.arr.bridge-1.0.0.zip) |
 
 These are separate packages with independent version numbers. The repository installer **1.0.0** delivers the current Arr Bridge add-on **0.1.2** and future published updates. For easy updating, install the repository package first.
@@ -75,4 +75,4 @@ Configure credentials inside Kodi. No personal API keys or runtime settings are 
 
 ## Arr Remove
 
-Install Arr Bridge and configure its servers first, then install the [Arr Remove ZIP](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.remove-0.1.0.zip). Use **Remove from Kodi / Arr** from a library movie or TV show context menu. File deletion and import-list exclusion are optional. This first version has not been tested on a Kodi device. Arr Remove is currently a manual ZIP installation and is not included in the automatic update feed.
+Install Arr Bridge and configure its servers first, then install the [Arr Remove ZIP](https://raw.githubusercontent.com/WodKa78/kodi-arr-bridge/main/dist/script.arr.remove-0.1.1.zip). Use **Remove from Kodi / Arr** from a library movie or TV show context menu. File deletion and import-list exclusion are optional. This first version has not been tested on a Kodi device. Arr Remove is currently a manual ZIP installation and is not included in the automatic update feed.
